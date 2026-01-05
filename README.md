@@ -93,8 +93,8 @@ filtered_logits, keep_indices = apply_vocab_filter(logits, top_k=50)
 git clone https://github.com/Farx1/qllm-pbits.git
 cd qllm-pbits
 
-# Install with pinned versions (recommended)
-pip install -r requirements-lock.txt
+# Install with tested versions (recommended)
+pip install -r requirements-tested.txt
 pip install -e .
 
 # Or install with ranges
@@ -207,7 +207,7 @@ Stress test showing distribution shift:
 
 ## Tested Versions
 
-This package has been validated on **Windows 11** with the exact versions in `requirements-lock.txt`:
+This package has been validated on **Windows 11** with the versions in `requirements-tested.txt`:
 
 ```
 torch==2.1.0
@@ -217,13 +217,19 @@ matplotlib==3.8.2
 tqdm==4.66.1
 ```
 
-To regenerate the lock file:
+To generate a complete lock file with transitive dependencies:
 
 ```bash
-pip-compile pyproject.toml -o requirements-lock.txt
-# or
-uv pip compile pyproject.toml -o requirements-lock.txt
+# Using pip-tools (includes hashes for security)
+pip install pip-tools
+pip-compile pyproject.toml -o requirements.lock --generate-hashes
+
+# Or using uv (faster)
+pip install uv
+uv pip compile pyproject.toml -o requirements.lock
 ```
+
+**Note**: `requirements-tested.txt` contains only top-level packages tested in this research, not a complete lock with all transitive dependencies.
 
 ## Project Structure
 

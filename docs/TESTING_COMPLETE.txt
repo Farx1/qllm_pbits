@@ -71,7 +71,7 @@ Code & Tests:
 
 PERFORMANCE METRICS (V=32, n=10,000):
 - TV Distance: 0.158 - 0.397 (depending on lambda)
-- Invalid Rate: 0% - 0.4% (excellent)
+- Invalid Rate: 0% - 0.4% (low in tested configs)
 - Time per Sample: 14-16 ms (competitive with baseline)
 - Constraint Satisfaction: 99.6% - 100%
 

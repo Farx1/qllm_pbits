@@ -27,8 +27,8 @@ This document lists all materials ready for inclusion in your research paper.
 - **Main Document**: `EXPERIMENTAL_RESULTS.md`
 - **Key Findings**:
   - Softmax matching: TV=0.158-0.397 depending on λ
-  - Invalid rate: 0-0.4% (excellent)
-  - Time/sample: 14-16ms (excellent)
+  - Invalid rate: 0-0.4% (low in tested configs)
+  - Time/sample: 14-16ms (end-to-end call time)
   - Trade-off curve documented
 
 ### 4. Comprehensive Analysis

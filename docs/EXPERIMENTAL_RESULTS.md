@@ -154,7 +154,7 @@ The P-bit sampler demonstrates:
 
 The P-bit token sampler is a **working proof-of-concept** that:
 - ✅ Implements mathematically correct direct binary Gibbs sampling
-- ✅ Achieves excellent constraint satisfaction (0% invalid at λ≥10)
+- ✅ Achieves strong constraint satisfaction (0% invalid at λ≥10)
 - ⚠️ Shows significant approximation error (TV=0.16-0.40)
 - ⚠️ Exhibits mixing issues in some settings (V=16 poor convergence)
 - ❌ Lacks ESS/autocorrelation characterization

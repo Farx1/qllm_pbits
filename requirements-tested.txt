@@ -1,0 +1,18 @@
+# Tested Versions (NOT a complete lock file with transitive dependencies)
+#
+# These are the top-level package versions that were validated on Windows 11
+# with Python 3.11.9 on January 5, 2026.
+#
+# To generate a complete lock file with all transitive dependencies and hashes:
+#   pip install pip-tools
+#   pip-compile pyproject.toml -o requirements.lock --generate-hashes
+#
+# Or using uv (faster):
+#   pip install uv
+#   uv pip compile pyproject.toml -o requirements.lock
+#
+torch==2.1.0
+transformers==4.35.2
+numpy==1.26.2
+matplotlib==3.8.2
+tqdm==4.66.1
