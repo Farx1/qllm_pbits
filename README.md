@@ -1,6 +1,6 @@
 # qllm-pbits
 
-P-bit network simulator for sampling tokens from LLM distributions using direct Gibbs sampling on binary variables with one-hot penalty energy.
+(Work in progress) P-bit network simulator for sampling tokens from LLM distributions using direct Gibbs sampling on binary variables with one-hot penalty energy.
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
