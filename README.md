@@ -15,7 +15,7 @@ This research package implements a proof-of-concept for using **probabilistic bi
 - **Softmax-matching token sampler** with explicit one-hot constraint enforcement
 - **Resample fallback strategy**: 3 resample attempts → argmax → invalid-rate tracking
 - **GPT-2 integration** for real-world text generation experiments
-- **Comprehensive validation**: TV, KL, ESS, invalid-rate metrics
+- **Comprehensive validation**: TV, KL, invalid-rate metrics (ESS/autocorr utilities included, not reported in current results)
 - **Reproducible experiments** with strict pass criteria
 
 ### ✅ Validation Results (V=32, n=10,000, steps=100)
@@ -23,7 +23,7 @@ This research package implements a proof-of-concept for using **probabilistic bi
 | Status | Metric | Result |
 |--------|--------|--------|
 | ✅ | **Tests Passed** | 19/19 (100%) |
-| ✅ | **Invalid Rate** | 0-0.4% (excellent) |
+| ✅ | **Invalid Rate** | 0–0.4% (low in tested configs) |
 | ✅ | **Mathematical Correctness** | Verified |
 | ⚠️ | **TV Distance** | 0.158-0.397 (high) |
 | ⚠️ | **Mixing Quality** | Poor in some settings |
@@ -35,7 +35,7 @@ This research package implements a proof-of-concept for using **probabilistic bi
 ## Tech Stack
 
 - **Python**: 3.11+
-- **Core**: PyTorch 2.x, NumPy 1.24+, SciPy 1.10+
+- **Core**: PyTorch 2.x, NumPy 1.24+
 - **LLM Integration**: Transformers 4.30+
 - **Visualization**: Matplotlib 3.7+
 - **Development**: pytest 7.3+, Jupyter 1.0+
@@ -158,7 +158,7 @@ qllm-pbits generate \
 
 # Run demonstration script
 python demo_sampler.py
-# Generates pbit_sampler_demo.png with comparison plots
+# Generates docs/assets/pbit_sampler_demo.png with comparison plots
 ```
 
 ## Experiments & Results
@@ -185,24 +185,25 @@ All unit tests pass successfully, validating:
 | 100.0 | 0.397 | 0.443 | 0.0% | 14.6 |
 
 **Key Findings**:
-- ✅ **Performance**: 14-16ms per sample (excellent, below 50ms target)
+- ✅ **Performance**: 14–16ms per sample (observed end-to-end call time in this setup)
 - ✅ **Constraint Satisfaction**: 99.6-100% valid one-hot samples
 - 📊 **Trade-off**: Lower λ gives better distribution matching (TV=0.16) but ~0.4% invalid samples; higher λ (≥10) gives 0% invalid but TV~0.37
 
 ### 3. Calibration Results
 
-Best lambda values by use case:
-- **Distribution Fidelity**: λ=5.0 (TV=0.158, 99.6% valid)
-- **Production/Reliability**: λ=20.0 (TV=0.370, 100% valid)
-- **Performance-Optimized**: λ=10.0 (TV=0.365, 100% valid, fastest)
+Best lambda values for this setup (V=32, steps=100, β=1.0):
+- **Best TV distance**: λ=5.0 (TV=0.158, 99.6% valid)
+- **Best validity**: λ≥10 (TV~0.37, 100% valid)  
+- ⚠️ **Setup-dependent**: Different vocabularies or step counts require recalibration
 
 ### 4. Demonstration (V=16, n=2000)
 
-Successfully demonstrated working sampler with visualization:
-- Baseline (softmax) vs P-bit comparison
-- Invalid rate: 0%
-- Time per sample: ~15ms
-- See `pbit_sampler_demo.png` for visual results
+Stress test showing distribution shift:
+- Configuration: λ=20, 100 Gibbs steps
+- Invalid rate: 0% (perfect constraint)
+- TV distance: 0.41 (poor mixing - top tokens differ from baseline)
+- See `docs/assets/pbit_sampler_demo.png` for visualization
+- **Interpretation**: Shows mixing limitations, not successful matching
 
 ## Tested Versions
 
@@ -212,7 +213,6 @@ This package has been validated on **Windows 11** with the exact versions in `re
 torch==2.1.0
 transformers==4.35.2
 numpy==1.26.2
-scipy==1.11.4
 matplotlib==3.8.2
 tqdm==4.66.1
 ```

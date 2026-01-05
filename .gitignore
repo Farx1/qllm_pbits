@@ -49,3 +49,6 @@ models/
 .DS_Store
 Thumbs.db
 
+# Cursor IDE
+.cursor/
+

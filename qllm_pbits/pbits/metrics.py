@@ -8,7 +8,6 @@ and one-hot constraint violation rate.
 import torch
 from torch import Tensor
 import numpy as np
-from scipy import signal
 
 
 def total_variation(p: Tensor, q: Tensor) -> float:

@@ -6,6 +6,7 @@ Shows basic usage and comparison with baseline.
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 from qllm_pbits.token_sampler import PBitOneHotSampler, SoftmaxMultinomialSampler
 from qllm_pbits.pbits.metrics import total_variation, kl_divergence
 
@@ -111,15 +112,16 @@ axes[2].legend()
 axes[2].grid(alpha=0.3, axis='y')
 
 plt.tight_layout()
-plt.savefig('pbit_sampler_demo.png', dpi=150, bbox_inches='tight')
-print("\n[OK] Plot saved as 'pbit_sampler_demo.png'")
+os.makedirs('docs/assets', exist_ok=True)
+plt.savefig('docs/assets/pbit_sampler_demo.png', dpi=150, bbox_inches='tight')
+print("\n[OK] Plot saved as 'docs/assets/pbit_sampler_demo.png'")
 
 print("\n" + "="*60)
 print("Demonstration Complete!")
 print("="*60)
 print("\nKey Takeaways:")
-print("1. P-bit sampler produces similar distributions to baseline")
-print("2. Invalid rate is very low (< 1%)")
-print("3. Sampling is fast (~15ms per token)")
-print("4. TV distance quantifies the approximation quality")
+print("1. P-bit sampler shows fidelity-constraint trade-off")
+print("2. Invalid rate: 0% with lambda=20 (excellent constraint enforcement)")
+print("3. End-to-end call time: ~15ms (includes overhead)")
+print("4. TV distance quantifies approximation quality (0.16-0.41 observed)")
 
